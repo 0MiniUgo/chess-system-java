@@ -10,12 +10,12 @@ public class Position {
         this.colunm = colunm;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public int getRow() {
+        return row;
     }
 
-    public void setColunm(int colunm) {
-        this.colunm = colunm;
+    public int getColunm() {
+        return colunm;
     }
 
     @Override
