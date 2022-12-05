@@ -39,7 +39,7 @@ public class Board {
 
     public void placePiece(Piece piece, Position position){
 
-        if(!thereIsAPiece(position)){
+        if(thereIsAPiece(position)){
             throw new BoardException("There is a piece on position " + position);
         }
 
@@ -70,6 +70,6 @@ public class Board {
 
         if(!positionExists(position))  throw new BoardException("Position not be on the board");
 
-        return pieces != null;
+        return piece(position) != null;
     }
 }
