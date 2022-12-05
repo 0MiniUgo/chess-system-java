@@ -55,14 +55,32 @@ public class UI {
             System.out.print(ANSI_GREEN + (8 - i) + " " + ANSI_RESET);
             for(int j = 0; j < pieces.length; j++){
 
-                printPiece(pieces[i][j]);
+                printPiece(pieces[i][j], false);
             }
             System.out.println();
         }
         System.out.println(ANSI_GREEN + "  a b c d e f g h" + ANSI_RESET);
     }
 
-    private static void printPiece(ChessPiece piece){
+    public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+
+        for(int i = 0; i < pieces.length; i++){
+            System.out.print(ANSI_GREEN + (8 - i) + " " + ANSI_RESET);
+            for(int j = 0; j < pieces.length; j++){
+
+                printPiece(pieces[i][j], possibleMoves[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println(ANSI_GREEN + "  a b c d e f g h" + ANSI_RESET);
+    }
+
+    private static void printPiece(ChessPiece piece, boolean background){
+
+        if(background){
+            System.out.print(ANSI_CYAN_BACKGROUND);
+            if(piece != null) System.out.print(ANSI_RED_BACKGROUND);
+        }
 
         if(piece == null){
             System.out.print(ANSI_PURPLE + "-" + ANSI_RESET);
