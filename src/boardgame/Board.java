@@ -3,38 +3,38 @@ package boardgame;
 public class Board {
 
     private int rows;
-    private int colunms;
+    private int columns;
     private Piece[][] pieces;
 
-    public Board(int rows, int colunms) {
-        if(rows < 1 || colunms < 1){
+    public Board(int rows, int columns) {
+        if(rows < 1 || columns < 1){
             throw new BoardException("Error creating board: there must be at least 1 row and 1 column");
         }
         this.rows = rows;
-        this.colunms = colunms;
-        pieces = new Piece[rows][colunms];
+        this.columns = columns;
+        pieces = new Piece[rows][columns];
     }
 
     public int getRows() {
         return rows;
     }
 
-    public int getColunms() {
-        return colunms;
+    public int getColumns() {
+        return columns;
     }
 
-    public Piece piece(int row, int colunm){
+    public Piece piece(int row, int column){
 
-        if(!positionExists(row, colunm))  throw new BoardException("Position not be on the board");
+        if(!positionExists(row, column))  throw new BoardException("Position not be on the board");
 
-        return pieces[row][colunm];
+        return pieces[row][column];
     }
 
     public Piece piece(Position position){
 
         if(!positionExists(position))  throw new BoardException("Position not be on the board");
 
-        return pieces[position.getRow()][position.getColunm()];
+        return pieces[position.getRow()][position.getColumn()];
     }
 
     public void placePiece(Piece piece, Position position){
@@ -43,7 +43,7 @@ public class Board {
             throw new BoardException("There is a piece on position " + position);
         }
 
-        pieces[position.getRow()][position.getColunm()] = piece;
+        pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
     }
 
@@ -54,16 +54,16 @@ public class Board {
 
         Piece aux = piece(position);
         aux.position = null;
-        pieces[position.getRow()][position.getColunm()] = null;
+        pieces[position.getRow()][position.getColumn()] = null;
 
         return aux;
     }
 
-    private boolean positionExists(int row, int colunm){
-        return row >= 0 && row < rows && colunm >= 0 && colunm < colunms;
+    private boolean positionExists(int row, int column){
+        return row >= 0 && row < rows && column >= 0 && column < columns;
     }
     public boolean positionExists(Position position){
-        return positionExists(position.getRow(), position.getColunm());
+        return positionExists(position.getRow(), position.getColumn());
     }
 
     public boolean thereIsAPiece(Position position){
