@@ -22,8 +22,8 @@ public class Rook extends ChessPiece {
 
         Position p = new Position(0,0);
 
-        for(int i = -1; i< 2; i++){
-            for(int j = -1;j < 2; j++){
+        for(int i = -1; i < 2; i++){
+            for(int j = -1; j < 2; j++){
 
                 if((i == 0 && j == 0) || (i != 0 && j != 0)) continue;
 
