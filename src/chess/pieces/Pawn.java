@@ -2,12 +2,17 @@ package chess.pieces;
 
 import boardgame.Board;
 import boardgame.Position;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.Color;
 
 public class Pawn extends ChessPiece {
-    public Pawn(Board board, Color color) {
+
+    private ChessMatch chessMatch;
+    public Pawn(Board board, Color color, ChessMatch chessMatch) {
+
         super(board, color);
+        this.chessMatch = chessMatch;
     }
 
     @Override
@@ -15,14 +20,16 @@ public class Pawn extends ChessPiece {
 
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
         Position p = new Position(0,0);
-        int s1, s2;
+        int s1, s2, rowPassant;
 
         if(getColor() == Color.WHITE){
             s1 = -1;
             s2 = -2;
+            rowPassant = 3;
         }else{
             s1 = 1;
             s2 = 2;
+            rowPassant = 4;
         }
 
         p.setValues(position.getRow() + s1, position.getColumn());
@@ -48,6 +55,25 @@ public class Pawn extends ChessPiece {
         p.setValues(position.getRow() + s1, position.getColumn() + 1);
         if(getBoard().positionExists(p) && isThereOpponentPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
+        }
+
+        // Special move en passant
+        if(position.getRow() == rowPassant){
+
+            Position left = new Position(position.getRow(), position.getColumn() - 1);
+            if(getBoard().positionExists(left)
+                    && isThereOpponentPiece(left)
+                    && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()){
+
+                mat[left.getRow() + s1][left.getColumn()] = true;
+            }
+            Position right = new Position(position.getRow(), position.getColumn() + 1);
+            if(getBoard().positionExists(right)
+                    && isThereOpponentPiece(right)
+                    && getBoard().piece(right) == chessMatch.getEnPassantVulnerable()){
+
+                mat[right.getRow() + s1][right.getColumn()] = true;
+            }
         }
 
         return mat;
